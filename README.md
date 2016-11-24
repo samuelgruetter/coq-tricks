@@ -67,3 +67,9 @@ But `SearchAbout` is much more powerful than just that:
     ```
     SearchAbout (length (skipn _ _)).
     ```
+
+## Tools
+
+### coqwc
+
+`coqwc` is a stand-alone command line tool to print line statistics about Coq files (how many lines are spec, proof, comments).
