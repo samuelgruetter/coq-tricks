@@ -113,25 +113,28 @@ Copy some files that old-install forgot to copy:
 (following https://github.com/coq/coq/blob/V8.5pl2/INSTALL and https://github.com/coq/coq/blob/V8.5pl2/INSTALL.ide)
 
     cd some/dir/for/clones
-
     git clone git@github.com:coq/coq.git
-
     cd coq
-
     git checkout V8.5pl2
 
 Optional, to get the Ltac profiler:
 
-    wget https://raw.githubusercontent.com/coq/opam-coq-archive/master/core-dev/packages/coq.8.5.dev%2Bltacprof/files/ltac-profiling-0.9-8.5.patch
-    patch -p1 < ltac-profiling-0.9-8.5.patch
+```
+wget https://raw.githubusercontent.com/coq/opam-coq-archive/master/core-dev/packages/coq.8.5.dev%2Bltacprof/files/ltac-profiling-0.9-8.5.patch
+patch -p1 < ltac-profiling-0.9-8.5.patch
+```
 
+```
+./configure -prefix ~/installs/ocaml32 -lablgtkdir ~/installs/ocaml32/lib/lablgtk2 -arch i686
+```
 
-    ./configure -prefix ~/installs/ocaml32 -lablgtkdir ~/installs/ocaml32/lib/lablgtk2 -arch i686
+```
+make world
+```
 
-    make world
-
-    make install
-
+```
+make install
+```
 
 
 ## Installation of some more tools
