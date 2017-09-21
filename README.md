@@ -68,6 +68,16 @@ But `SearchAbout` is much more powerful than just that:
     SearchAbout (length (skipn _ _)).
     ```
 
+
+### Custom reduction strategies
+
+```
+Declare Reduction foo := cbv [length app].
+
+Eval foo in (length (app (cons 1 nil) (cons 2 nil))).
+```
+
+
 ## Tools
 
 ### coqwc
