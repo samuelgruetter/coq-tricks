@@ -56,16 +56,16 @@ It will be part of Coq 8.6. For earlier versions, you can get it by applying a p
 
 ## Vernacular
 
-### SearchAbout
+### Search
 
-`SearchAbout ident.` lists all lemmas mentioning `ident`.
+`Search ident.` lists all lemmas mentioning `ident`.
 
-But `SearchAbout` is much more powerful than just that:
-* `SearchAbout ident1 ... identN.` lists all lemmas mentioning all of `ident1` ... `identN`.
-* `SearchAbout pattern.` lists all lemmas in which `pattern` occurs. For instance, you can
+But `Search` is much more powerful than just that:
+* `Search ident1 ... identN.` lists all lemmas mentioning all of `ident1` ... `identN`.
+* `Search pattern.` lists all lemmas in which `pattern` occurs. For instance, you can
 
     ```
-    SearchAbout (length (skipn _ _)).
+    Search (length (skipn _ _)).
     ```
 
 
