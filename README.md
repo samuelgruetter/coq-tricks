@@ -25,15 +25,52 @@ end.
 However, if we replace `match` by `lazymatch`, it will fail with the error message of `tac1`.
 
 
-### tryif
+### control flow
 
 ```
 tryif tac1 then tac2 else tac3
 ```
 
-Runs `tac1`, if `tac1` succeeds, continues with `tac2`, else continues with `tac3`.
+Runs `tac1`, if `tac1` succeeds, continues with `tac2`, else reverts the effects of `tac1` and continues with `tac3`.
 
 *Note*: If the `else` branch is a sequence of several commands separated by a semicolon, they have to be wrapped in parentheses, to get the operator precedence right.
+
+
+```
+assert_fails tac1
+```
+
+Runs `tac1`, always reverts the effects of `tac1`, and succeeds if `tac1` failed, and fails if `tac1` succeeded.
+
+
+```
+assert_succeeds tac1
+```
+
+Runs `tac1`, always reverts the effects of `tac1`, and succeeds if `tac1` succeeded, and fails if `tac1` failed.
+
+
+```
+unify term1 term2
+constr_eq term1 term2
+```
+
+`unify` checks that two terms are unifiable, potentially instantiating evars.
+
+`constr_eq` only does a syntactic comparison (modulo alpha-conversion and casts).
+
+However, we often want a side-effect free unification test, ie. unification which does not instantiate evars:
+
+```
+assert_fails (has_evar term1); assert_fails (has_evar term2); unify term1 term2.
+```
+
+```
+is_var term1
+is_evar term1
+```
+
+succeeds if `term1` is a variable or evar, respectively.
 
 
 ### Tactic redefinition with `::=`
