@@ -73,6 +73,28 @@ is_evar term1
 succeeds if `term1` is a variable or evar, respectively.
 
 
+More useful tactics:
+
+- `edestruct`
+- `epose proof`
+- `unshelve`
+- partial specialize: `specialize H with (a := foo) (2 := H3)`
+
+
+And list of term classification tactics, many of which [are undocumented](https://github.com/coq/coq/issues/8116):
+
+- `is_evar`
+- `has_evar`
+- `is_hyp`
+- `is_fix`
+- `is_cofix`
+- `is_ind`
+- `is_constructor`
+- `is_proj`
+- `is_const`
+
+
+
 ### Tactic redefinition with `::=`
 
 ```
