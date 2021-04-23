@@ -1,6 +1,6 @@
 Say you need an old Coq version, but don't want it to interfere with your other installations.
 
-First, install opam (these instructions were tested with opam 1.2.2, opam 2 commands are given as well where they differ).
+First, make sure you have opam installed (these instructions were tested with opam 2.0.3), and that you have the Coq repos added (you might need a command like `opam repo add coq-released https://coq.inria.fr/opam/released`).
 
 Start by running
 
@@ -10,36 +10,39 @@ opam update
 
 to fetch the latest package metadata.
 
+```
+opam show coq
+```
+
+lists all available versions.
+For this example, we pick `8.4pl2`, and run
+
+```
+opam show coq.8.4pl2
+```
+
+which lists, under "Version-specific details", its supported OCaml versions (`{>= "3.11.2" & < "4.02.0"}`).
+
 Then, run
 
 ```
-# opam 1:
-opam switch
-# opam 2:
 opam switch list-available
 ```
 
 to list the available OCaml versions, and choose an OCaml version you think will be compatible with the Coq version you're going to install.
 
-In our example, we choose OCaml version 4.05.0, and give the name `MyCoq87Switch` to the new switch we're creating:
+In our example, we choose OCaml version 4.01.0, and give the name `MyCoq842Switch` to the new switch we're creating:
 
 ```
-# opam 1:
-opam switch -A 4.05.0 MyCoq87Switch
-# opam 2:
-opam switch create MyCoq87Switch 4.05.0
+opam switch create MyCoq842Switch 4.01.0
 ```
 
-This will download and install OCaml. Then, list the available versions of Coq:
+This will download and install OCaml.
+
+Next, pin the desired Coq version:
 
 ```
-opam show coq
-```
-
-Pick the one you need, and pin it:
-
-```
-opam pin add coq 8.7.2
+opam pin add coq 8.4pl2
 ```
 
 which will calculate the required dependencies, and ask you if you want to install all of it. Answer `Y`.
@@ -47,11 +50,7 @@ which will calculate the required dependencies, and ask you if you want to insta
 After this, in any terminal where you want to use this old Coq version, run the following two commands:
 
 ```
-# opam 1:
-opam switch MyCoq87Switch
-eval `opam config env`
-# opam 2:
-opam switch MyCoq87Switch
+opam switch MyCoq842Switch
 eval $(opam env)
 ```
 
