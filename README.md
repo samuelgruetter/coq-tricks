@@ -106,11 +106,28 @@ Overrides a previously defined tactic `tac_name` with a new implementation.
 Useful to make libraries user-configurable, and to debug libraries without recompiling them.
 
 
-### Ltac Profiler
+### Ltac Profiling
 
 Coq has an Ltac profiler which shows for each Ltac function how much time it took.
+It can be enabled with `Set Ltac Profiling` and the profile can be shown with `Show Ltac Profile`.
 
-It will be part of Coq 8.6. For earlier versions, you can get it by applying a patch to the Coq source code, as described on the [LtacProf website](http://www.ps.uni-saarland.de/~ttebbi/ltacprof/).
+It is also possible to time individual Ltac invocations using the Ltac command `time "some description" my_tactic`.
+
+
+### Logging a goal
+
+Sometimes, there's a goal somewhere deep inside an Ltac call stack that we'd like to inspect further, but it's hard to get the tactics to stop exactly there. In such cases, we can override the innermost Ltac with `::=` to a modified version that logs the goal at the point of interest, using the following side-effect-free (besides logging) `log_goal` tactic:
+
+```coq
+Ltac log_goal :=
+  try (repeat match goal with
+              | x: _ |- _ => revert x
+              end;
+       match goal with
+       | |- ?g => idtac "goal:"; idtac g
+       end;
+       fail).
+```
 
 
 ## Vernacular
@@ -142,3 +159,4 @@ Eval foo in (length (app (cons 1 nil) (cons 2 nil))).
 ### coqwc
 
 `coqwc` is a stand-alone command line tool to print line statistics about Coq files (how many lines are spec, proof, comments).
+Caveat: It seems that `Ltac` definitions are counted as "spec".
